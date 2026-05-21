@@ -3,11 +3,15 @@
   "image": "mcr.microsoft.com/devcontainers/python:1-3.11",
 
   // Install Python deps once when the codespace is first created.
-  "postCreateCommand": "pip install --user -r requirements.txt",
+  // No --user flag: keeps packages on the default Python path so postStartCommand
+  // can find them without needing ~/.local/bin on PATH.
+  "postCreateCommand": "pip install -r requirements.txt",
 
   // Auto-start the FastAPI server every time the codespace starts.
   // Backgrounded so the codespace can finish attaching; logs go to /tmp.
-  "postStartCommand": "nohup uvicorn main:app --host 0.0.0.0 --port 8001 > /tmp/uvicorn.log 2>&1 &",
+  // Using `python -m uvicorn` (not the bare `uvicorn` binary) so this works
+  // regardless of whether the uvicorn entrypoint script is on PATH.
+  "postStartCommand": "nohup python -m uvicorn main:app --host 0.0.0.0 --port 8001 > /tmp/uvicorn.log 2>&1 & disown",
 
   // Forward the app port and prompt to open it in a new browser tab.
   "forwardPorts": [8001],
