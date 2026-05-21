@@ -20,12 +20,12 @@ The simplest way to use the app, no install required:
 
 > **Doesn't auto-open?** Sometimes the port notification is missed or the
 > auto-start hits a hiccup. You have two manual fallbacks:
-> - **Use the Ports tab.** In VS Code at the bottom, click the **Ports** tab,
->   find port `8001`, hover the **Forwarded Address** column, click the
->   globe icon to open it in a browser.
-> - **Start the server yourself.** Open a terminal in VS Code (`` Ctrl+` ``)
->   and run `uvicorn main:app --host 0.0.0.0 --port 8001`. The Ports tab will
->   pick it up immediately.
+> - **Re-run the startup script.** Open a terminal in VS Code (`` Ctrl+` ``)
+>   and run `bash .devcontainer/start.sh` — same script the codespace runs at
+>   boot. Once it prints *"uvicorn started"*, the Ports tab picks it up and
+>   the **Open in Browser** notification appears.
+> - **Use the Ports tab directly.** Click the **Ports** tab at the bottom of
+>   VS Code, find port `8001`, and click the globe icon next to it.
 
 The codespace shuts down on its own after 30 minutes of inactivity. Free GitHub
 accounts get 60 codespace hours per month, far more than a tech writer will use.

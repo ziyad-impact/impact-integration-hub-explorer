@@ -8,10 +8,10 @@
   "postCreateCommand": "pip install -r requirements.txt",
 
   // Auto-start the FastAPI server every time the codespace starts.
-  // Backgrounded so the codespace can finish attaching; logs go to /tmp.
-  // Using `python -m uvicorn` (not the bare `uvicorn` binary) so this works
-  // regardless of whether the uvicorn entrypoint script is on PATH.
-  "postStartCommand": "nohup python -m uvicorn main:app --host 0.0.0.0 --port 8001 > /tmp/uvicorn.log 2>&1 & disown",
+  // Delegated to a real bash script — postStartCommand runs under /bin/sh
+  // and bash-only constructs (like `disown`) silently fail there.
+  // start.sh handles backgrounding, logging, and dep verification.
+  "postStartCommand": "bash .devcontainer/start.sh",
 
   // Forward the app port and prompt to open it in a new browser tab.
   "forwardPorts": [8001],
