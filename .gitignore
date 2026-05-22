@@ -23,6 +23,8 @@ build/
 
 # IDE
 .idea/
-.vscode/
+.vscode/*
+# …but the shared tasks file (auto-start in Codespaces) must be committed.
+!.vscode/tasks.json
 *.swp
 *.swo

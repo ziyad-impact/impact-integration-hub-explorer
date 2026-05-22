@@ -2,16 +2,15 @@
   "name": "impact.com Integration Hub Explorer",
   "image": "mcr.microsoft.com/devcontainers/python:1-3.11",
 
-  // Install Python deps once when the codespace is first created.
-  // No --user flag: keeps packages on the default Python path so postStartCommand
-  // can find them without needing ~/.local/bin on PATH.
-  "postCreateCommand": "pip install -r requirements.txt",
+  // Install Python deps when the codespace is first created.
+  // Use `python -m pip` (not bare `pip`) to guarantee we install into the
+  // exact Python that VS Code's task will later use to run uvicorn.
+  "postCreateCommand": "python -m pip install -r requirements.txt",
 
-  // Auto-start the FastAPI server every time the codespace starts.
-  // Delegated to a real bash script — postStartCommand runs under /bin/sh
-  // and bash-only constructs (like `disown`) silently fail there.
-  // start.sh handles backgrounding, logging, and dep verification.
-  "postStartCommand": "bash .devcontainer/start.sh",
+  // The app is started by a VS Code task with `runOn: folderOpen` (defined
+  // in .vscode/tasks.json). That runs visibly in a terminal panel, so any
+  // startup error is immediately diagnosable — unlike postStartCommand,
+  // which runs in a hidden shell and fails silently if anything goes wrong.
 
   // Forward the app port and prompt to open it in a new browser tab.
   "forwardPorts": [8001],
@@ -25,7 +24,13 @@
 
   "customizations": {
     "vscode": {
-      "extensions": ["ms-python.python"]
+      "extensions": ["ms-python.python"],
+      "settings": {
+        // Lets the "Start App" task in .vscode/tasks.json auto-run on open
+        // without prompting. Codespaces auto-trusts the workspace, so this
+        // value goes through without intervention.
+        "task.allowAutomaticTasks": "on"
+      }
     }
   }
 }

@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start App",
+      "detail": "Auto-runs when the codespace opens — boots the FastAPI server on port 8001",
+      "type": "shell",
+      "command": "python -m uvicorn main:app --host 0.0.0.0 --port 8001",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "echo": true,
+        "showReuseMessage": false,
+        "clear": false
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

@@ -10,22 +10,26 @@ API.
 The simplest way to use the app, no install required:
 
 1. From this repo on GitHub, click **`Code → Codespaces → Create codespace on main`**.
-2. A VS Code editor opens in your browser. You'll see this README open — that's
-   expected, the codespace is still finishing its setup in the background.
-3. Wait ~60–90 seconds. When the server is ready, a notification appears at the
-   **bottom-right**: *"Your application running on port 8001 is available."*
-   Click **Open in Browser** on that notification — the app loads in a new tab.
+2. A VS Code editor opens in your browser. The README and a **terminal panel**
+   open automatically. The terminal will show pip installing dependencies, then
+   start the FastAPI server.
+3. When the line *"Application startup complete"* appears in the terminal,
+   a notification pops up at the **bottom-right**: *"Your application running
+   on port 8001 is available."* Click **Open in Browser** — the app loads
+   in a new tab.
 4. Paste your personal GitBook API token into the modal that appears (see below).
 5. Done — the app is running, scoped to your token.
 
-> **Doesn't auto-open?** Sometimes the port notification is missed or the
-> auto-start hits a hiccup. You have two manual fallbacks:
-> - **Re-run the startup script.** Open a terminal in VS Code (`` Ctrl+` ``)
->   and run `bash .devcontainer/start.sh` — same script the codespace runs at
->   boot. Once it prints *"uvicorn started"*, the Ports tab picks it up and
->   the **Open in Browser** notification appears.
-> - **Use the Ports tab directly.** Click the **Ports** tab at the bottom of
->   VS Code, find port `8001`, and click the globe icon next to it.
+> **Doesn't auto-open?** If the terminal panel doesn't show the task, or you
+> closed it by accident, run the start script manually:
+>
+> ```bash
+> bash .devcontainer/start.sh
+> ```
+>
+> Once it prints *"uvicorn started"*, click the **Ports** tab at the bottom
+> of VS Code, find port `8001`, and click the globe icon next to it to open
+> the app in a browser.
 
 The codespace shuts down on its own after 30 minutes of inactivity. Free GitHub
 accounts get 60 codespace hours per month, far more than a tech writer will use.
