@@ -5,34 +5,17 @@ architecture — portals, API surfaces, integration patterns, tracking flows, an
 the live content behind each. Built with FastAPI + Jinja, talking to the GitBook
 API.
 
-## Run it in one click — GitHub Codespaces
+## Run it locally
 
-The simplest way to use the app, no install required:
+```bash
+git clone https://github.com/ziyad-impact/impact-integration-hub-explorer.git
+cd impact-integration-hub-explorer
+pip install -r requirements.txt
+uvicorn main:app --port 8001
+```
 
-1. From this repo on GitHub, click **`Code → Codespaces → Create codespace on main`**.
-2. A VS Code editor opens in your browser. The README and a **terminal panel**
-   open automatically. The terminal will show pip installing dependencies, then
-   start the FastAPI server.
-3. When the line *"Application startup complete"* appears in the terminal,
-   a notification pops up at the **bottom-right**: *"Your application running
-   on port 8001 is available."* Click **Open in Browser** — the app loads
-   in a new tab.
-4. Paste your personal GitBook API token into the modal that appears (see below).
-5. Done — the app is running, scoped to your token.
-
-> **Doesn't auto-open?** If the terminal panel doesn't show the task, or you
-> closed it by accident, run the start script manually:
->
-> ```bash
-> bash .devcontainer/start.sh
-> ```
->
-> Once it prints *"uvicorn started"*, click the **Ports** tab at the bottom
-> of VS Code, find port `8001`, and click the globe icon next to it to open
-> the app in a browser.
-
-The codespace shuts down on its own after 30 minutes of inactivity. Free GitHub
-accounts get 60 codespace hours per month, far more than a tech writer will use.
+Then open <http://localhost:8001> and paste your GitBook API token into the
+modal that appears on first visit.
 
 ## Get a GitBook API token
 
@@ -44,19 +27,6 @@ Each user supplies their own — no shared credential lives in the repo.
 4. Paste it into the token modal the first time the app loads. It stays in your
    browser's local storage — never sent anywhere except the GitBook API.
 
-## Local development (optional)
-
-If you'd rather run it on your own machine:
-
-```bash
-git clone https://github.com/ziyad-impact/impact-integration-hub-explorer.git
-cd impact-integration-hub-explorer
-pip install -r requirements.txt
-uvicorn main:app --port 8001
-```
-
-Then open <http://localhost:8001> and paste your token.
-
 ## Project structure
 
 ```
@@ -65,6 +35,5 @@ Then open <http://localhost:8001> and paste your token.
 ├── gitbook_client.py        # GitBook API wrapper
 ├── config.py                # Settings + the portal / space ID map
 ├── templates/index.html     # Single-page app (HTML + CSS + JS)
-├── requirements.txt
-└── .devcontainer/           # Codespaces config
+└── requirements.txt
 ```

@@ -5424,13 +5424,17 @@ curl -u <span class="llms-r-k">$AccountSID:$AuthToken</span> \
 const GB_TOKEN_KEY = 'impact_docs_gitbook_token';
 let _gbToken = localStorage.getItem(GB_TOKEN_KEY) || '';
 
-// Override fetch to auto-inject the user's token into /api/* requests
+// Override fetch to auto-inject the user's token into /api/* requests.
+// Caller-provided X-GitBook-Token headers win — important for the auth-check
+// flow in saveToken(), which must send the *new* token the user just typed,
+// not the *stale* cached one that's about to be replaced.
 (function patchFetch() {
   const orig = window.fetch;
   window.fetch = function(input, init = {}) {
     const url = typeof input === 'string' ? input : (input && input.url) || '';
     if (url.startsWith('/api/') && _gbToken) {
-      init.headers = Object.assign({}, init.headers || {}, { 'X-GitBook-Token': _gbToken });
+      // Default header first, caller's headers second — explicit overrides cached.
+      init.headers = Object.assign({}, { 'X-GitBook-Token': _gbToken }, init.headers || {});
     }
     return orig(input, init);
   };
